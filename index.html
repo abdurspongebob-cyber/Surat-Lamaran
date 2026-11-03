@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Surat Lamaran Kerja - Professional & Clean</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        @media print {
+            body * { visibility: hidden; }
+            #preview-section, #preview-section * { visibility: visible; }
+            #preview-section { 
+                position: absolute; 
+                left: 0; 
+                top: 0; 
+                width: 100%; 
+                margin: 0; 
+                box-shadow: none; 
+                border: none; 
+                padding: 20mm;
+            }
+            .no-print { display: none !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
+
+    <!-- Header -->
+    <header class="bg-white/80 backdrop-blur-md border-b border-slate-200 py-4 px-6 sticky top-0 z-50 no-print shadow-xs">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="bg-indigo-600 text-white p-2 rounded-xl shadow-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-base font-bold text-slate-900 tracking-tight">SuratLamaran.Pro</h1>
+                    <p class="text-xs text-slate-500">Buat surat lamaran kerja instan, rapi, dan siap diterima HRD</p>
+                </div>
+            </div>
+            <div class="hidden sm:flex items-center gap-2 text-xs font-medium text-indigo-600 bg-indigo-50 px-3 py-1.5 rounded-full border border-indigo-100">
+                <span class="w-2 h-2 rounded-full bg-indigo-600 animate-pulse"></span>
+                Live Preview Aktif
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Form Input (Kiri) -->
+        <div class="lg:col-span-5 bg-white p-6 rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-200/80 space-y-6 no-print overflow-y-auto max-h-[85vh]">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                    Data Lamaran Kerja
+                </h2>
+                <span class="text-xs text-slate-400 bg-slate-100 px-2.5 py-1 rounded-md">Lengkap & Profesional</span>
+            </div>
+            
+            <div class="space-y-4">
+                <!-- Gaya Bahasa -->
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Gaya Bahasa Surat</label>
+                    <select id="input-gaya" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white focus:outline-none text-sm transition">
+                        <option value="formal">Formal & Profesional (Standar Umum)</option>
+                        <option value="semi">Semi-Formal (Lebih Humanis & Hangat)</option>
+                        <option value="kreatif">Kreatif / Startup (Dinamis & Modern)</option>
+                    </select>
+                </div>
+
+                <!-- Unggah Foto & Dokumen Pendukung -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-3 bg-slate-50 rounded-xl border border-slate-200/60">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Pas Foto Formal</label>
+                        <input type="file" id="input-foto" accept="image/*" class="w-full text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-600 hover:file:bg-indigo-100 cursor-pointer">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Unggah File CV (Opsional)</label>
+                        <input type="file" id="input-cv-file" accept=".pdf,.doc,.docx" class="w-full text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 file:text-emerald-600 hover:file:bg-emerald-100 cursor-pointer">
+                        <span id="cv-filename" class="text-[10px] text-slate-400 block mt-1 truncate">Belum ada file dipilih</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Tanggal Surat</label>
+                        <input type="date" id="input-tanggal" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white focus:outline-none text-sm transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Kota Perusahaan</label>
+                        <input type="text" id="input-kota" placeholder="Contoh: Jakarta Selatan" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white focus:outline-none text-sm transition" value="Jakarta Selatan">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Nama Perusahaan</label>
+                        <input type="text" id="input-perusahaan" placeholder="PT. Teknologi Nusantara" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white focus:outline-none text-sm transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Posisi Dilamar</label>
+                        <input type="text" id="input-posisi" placeholder="Frontend Developer" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white focus:outline-none text-sm transition">
+                    </div>
+                </div>
+
+                <div class="border-t border-slate-100 pt-4 mt-2">
+                    <p class="text-xs font-bold text-indigo-600 uppercase tracking-wider mb-3">Informasi Kontak Anda</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Nama Lengkap</label>
+                        <input type="text" id="input-nama" placeholder="Nama Anda" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white focus:outline-none text-sm transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">No. Telepon / WhatsApp</label>
+                        <input type="text" id="input-telepon" placeholder="0812xxxxxxxx" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white focus:outline-none text-sm transition">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Email Aktif</label>
+                    <input type="email" id="input-email" placeholder="email@domain.com" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white focus:outline-none text-sm transition">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Pengalaman & Keahlian Utama</label>
+                    <textarea id="input-pengalaman" rows="3" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white focus:outline-none text-sm transition">Saya memiliki pengalaman di bidang ini serta terbiasa bekerja secara mandiri maupun dalam tim dengan mengedepankan ketelitian dan hasil kerja yang berkualitas.</textarea>
+                </div>
+
+                <!-- Bagian Tanda Tangan -->
+                <div class="border-t border-slate-100 pt-4 mt-2 space-y-3">
+                    <p class="text-xs font-bold text-indigo-600 uppercase tracking-wider">Tanda Tangan</p>
+                    
+                    <div class="flex gap-2 p-1 bg-slate-100 rounded-xl">
+                        <button type="button" onclick="switchSignMode('draw')" id="btn-mode-draw" class="flex-1 py-1.5 text-xs font-semibold rounded-lg bg-white shadow-xs text-indigo-600 transition">Coret Tangan</button>
+                        <button type="button" onclick="switchSignMode('upload')" id="btn-mode-upload" class="flex-1 py-1.5 text-xs font-semibold rounded-lg text-slate-600 transition">Unggah Gambar</button>
+                    </div>
+
+                    <div id="sign-draw-container" class="space-y-2">
+                        <div class="border border-slate-200 rounded-xl bg-slate-50 overflow-hidden relative">
+                            <canvas id="signature-pad" class="w-full h-32 cursor-crosshair touch-none bg-white"></canvas>
+                            <span class="absolute bottom-2 right-3 text-[10px] text-slate-400 pointer-events-none">Tanda tangani di sini</span>
+                        </div>
+                        <button type="button" onclick="clearSignature()" class="text-xs text-rose-600 hover:text-rose-700 font-medium flex items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                            Hapus Tanda Tangan
+                        </button>
+                    </div>
+
+                    <div id="sign-upload-container" class="hidden space-y-2">
+                        <input type="file" id="input-file-sign" accept="image/*" class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-600 hover:file:bg-indigo-100 cursor-pointer">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tombol Aksi -->
+            <div class="pt-4 flex flex-col sm:flex-row gap-3">
+                <button onclick="window.print()" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-4 rounded-xl shadow-lg shadow-indigo-600/20 transition flex items-center justify-center gap-2 text-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Cetak / Simpan PDF
+                </button>
+                <button onclick="copyText()" id="btn-copy" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-3 px-4 rounded-xl transition flex items-center justify-center gap-2 text-sm border border-slate-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                    </svg>
+                    Salin Teks
+                </button>
+            </div>
+        </div>
+
+        <!-- Live Preview Surat (Kanan) -->
+        <div class="lg:col-span-7 flex justify-center items-start">
+            <div id="preview-section" class="bg-white w-full max-w-[210mm] min-h-[297mm] p-10 sm:p-14 shadow-xl shadow-slate-200/60 rounded-2xl border border-slate-200/80 text-slate-800 text-[13.55px] leading-relaxed flex flex-col justify-between">
+                
+                <div class="space-y-6">
+                    <!-- Header Pengirim & Pas Foto -->
+                    <div class="flex justify-between items-start">
+                        <!-- Alamat Perusahaan & Tanggal -->
+                        <div class="space-y-6 flex-1">
+                            <p id="prev-kota-tanggal" class="text-slate-600 font-medium">[Kota], [Tanggal]</p>
+                            
+                            <div class="space-y-0.5">
+                                <p class="font-semibold text-slate-700">Kepada Yth,</p>
+                                <p id="prev-perusahaan" class="font-bold text-slate-900 text-base">[Nama Perusahaan]</p>
+                                <p id="prev-alamat-perusahaan" class="text-slate-500">Di tempat</p>
+                            </div>
+                        </div>
+
+                        <!-- Preview Pas Foto (Kotak 3x4 formal) -->
+                        <div id="preview-foto-container" class="w-24 h-32 border-2 border-dashed border-slate-300 rounded-lg flex items-center justify-center bg-slate-50 overflow-hidden shrink-0 ml-4">
+                            <span class="text-[10px] text-slate-400 text-center px-1">Pas Foto 3x4</span>
+                            <img id="preview-foto-img" class="w-full h-full object-cover hidden" alt="Pas Foto">
+                        </div>
+                    </div>
+
+                    <!-- Perihal -->
+                    <div class="space-y-0.5 border-y border-slate-100 py-3 my-2">
+                        <p><span class="font-semibold text-slate-900">Perihal :</span> Permohonan Lamaran Pekerjaan</p>
+                        <p><span class="font-semibold text-slate-900">Lampiran :</span> <span id="prev-lampiran-text">1 Berkas Lengkap</span></p>
+                    </div>
+
+                    <!-- Salam Pembuka -->
+                    <div>
+                        <p class="font-medium">Dengan hormat,</p>
+                    </div>
+
+                    <!-- Paragraf Pembuka -->
+                    <div class="text-justify leading-relaxed">
+                        <p id="prev-pembuka">Berdasarkan informasi lowongan pekerjaan yang saya temukan, saya bermaksud untuk mengajukan diri guna bergabung dengan <span id="prev-perusahaan-inline" class="font-semibold text-slate-900">[Nama Perusahaan]</span> pada posisi <span id="prev-posisi" class="font-semibold text-indigo-600">[Posisi yang Dilamar]</span>. Saya percaya latar belakang serta keterampilan yang saya miliki dapat memberikan kontribusi nyata bagi perusahaan.</p>
+                    </div>
+
+                    <!-- Paragraf Isi/Pengalaman -->
+                    <div class="text-justify leading-relaxed">
+                        <p id="prev-pengalaman">
+                            Saya memiliki pengalaman di bidang ini serta terbiasa bekerja secara mandiri maupun dalam tim dengan mengedepankan ketelitian dan hasil kerja yang berkualitas.
+                        </p>
+                    </div>
+
+                    <!-- Paragraf Penutup -->
+                    <div class="text-justify leading-relaxed space-y-3">
+                        <p>Sebagai bahan pertimbangan Bapak/Ibu, bersama surat ini saya turut melampirkan beberapa berkas pendukung:</p>
+                        <ul class="list-disc list-inside pl-3 space-y-1 text-slate-700 font-medium">
+                            <li>Curriculum Vitae (CV) terbaru <span id="prev-cv-note" class="text-xs text-indigo-600 font-normal"></span></li>
+                            <li>Salinan Ijazah dan Transkrip Nilai</li>
+                            <li>Pas foto formal terbaru</li>
+                            <li>Portofolio hasil kerja relevan</li>
+                        </ul>
+                        <p class="pt-2">Demikian surat lamaran ini saya sampaikan. Besar harapan saya untuk diberikan kesempatan mengikuti tahap wawancara guna membahas potensi kontribusi saya lebih lanjut. Atas perhatian dan kesempatan yang diberikan, saya ucapkan terima kasih.</p>
+                    </div>
+                </div>
+
+                <!-- Tanda Tangan -->
+                <div class="pt-6 flex justify-end">
+                    <div class="text-left w-56">
+                        <p class="mb-1 text-slate-600">Hormat saya,</p>
+                        <div class="h-16 flex items-center my-1">
+                            <img id="preview-signature-img" class="max-h-16 max-w-[150px] object-contain hidden" alt="Tanda Tangan">
+                        </div>
+                        <p id="prev-nama" class="font-bold text-slate-900 border-b border-slate-300 pb-1">[Nama Lengkap]</p>
+                        <p id="prev-kontak" class="text-xs text-slate-400 mt-1 font-medium">[No. Telepon / Email]</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Script Live Update, Foto, CV, & Signature Pad -->
+    <script>
+        document.getElementById('input-tanggal').valueAsDate = new Date();
+
+        const inputs = {
+            gaya: document.getElementById('input-gaya'),
+            tanggal: document.getElementById('input-tanggal'),
+            kota: document.getElementById('input-kota'),
+            perusahaan: document.getElementById('input-perusahaan'),
+            posisi: document.getElementById('input-posisi'),
+            nama: document.getElementById('input-nama'),
+            telepon: document.getElementById('input-telepon'),
+            email: document.getElementById('input-email'),
+            pengalaman: document.getElementById('input-pengalaman')
+        };
+
+        const previews = {
+            kotaTanggal: document.getElementById('prev-kota-tanggal'),
+            perusahaan: document.getElementById('prev-perusahaan'),
+            perusahaanInline: document.getElementById('prev-perusahaan-inline'),
+            posisi: document.getElementById('prev-posisi'),
+            pembuka: document.getElementById('prev-pembuka'),
+            nama: document.getElementById('prev-nama'),
+            kontak: document.getElementById('prev-kontak'),
+            pengalaman: document.getElementById('prev-pengalaman')
+        };
+
+        function formatDate(dateString) {
+            if (!dateString) return '[Tanggal]';
+            const options = { day: 'numeric', month: 'long', year: 'numeric' };
+            return new Date(dateString).toLocaleDateString('id-ID', options);
+        }
+
+        function updatePreview() {
+            const kota = inputs.kota.value.trim() || '[Kota]';
+            const tanggal = formatDate(inputs.tanggal.value);
+            previews.kotaTanggal.textContent = `${kota}, ${tanggal}`;
+
+            const perusahaan = inputs.perusahaan.value.trim() || '[Nama Perusahaan]';
+            previews.perusahaan.textContent = perusahaan;
+            previews.perusahaanInline.textContent = perusahaan;
+
+            const posisi = inputs.posisi.value.trim() || '[Posisi yang Dilamar]';
+            previews.posisi.textContent = posisi;
+
+            const nama = inputs.nama.value.trim() || '[Nama Lengkap]';
+            previews.nama.textContent = nama;
+
+            const telepon = inputs.telepon.value.trim() || '[No. Telepon]';
+            const email = inputs.email.value.trim() || '[Email]';
+            previews.kontak.textContent = `${telepon} | ${email}`;
+
+            const pengalaman = inputs.pengalaman.value.trim();
+            if (pengalaman) {
+                previews.pengalaman.textContent = pengalaman;
+            }
+
+            const gaya = inputs.gaya.value;
+            if (gaya === 'semi') {
+                previews.pembuka.innerHTML = `Melalui surat ini, saya ingin menyampaikan ketertarikan saya untuk bergabung bersama <span class="font-semibold text-slate-900">${perusahaan}</span> dalam posisi <span class="font-semibold text-indigo-600">${posisi}</span>. Saya sangat mengagumi visi perusahaan ini dan yakin kemampuan saya sejalan dengan kebutuhan tim.`;
+            } else if (gaya === 'kreatif') {
+                previews.pembuka.innerHTML = `Halo tim <span class="font-semibold text-slate-900">${perusahaan}</span>! Saya antusias mengajukan diri untuk posisi <span class="font-semibold text-indigo-600">${posisi}</span>. Dengan semangat inovasi dan kreativitas tinggi, saya siap menghadirkan solusi segar untuk mendukung perkembangan perusahaan.`;
+            } else {
+                previews.pembuka.innerHTML = `Berdasarkan informasi lowongan pekerjaan yang saya temukan, saya bermaksud untuk mengajukan diri guna bergabung dengan <span class="font-semibold text-slate-900">${perusahaan}</span> pada posisi <span class="font-semibold text-indigo-600">${posisi}</span>. Saya percaya latar belakang serta keterampilan yang saya miliki dapat memberikan kontribusi nyata bagi perusahaan.`;
+            }
+        }
+
+        Object.values(inputs).forEach(input => {
+            input.addEventListener('input', updatePreview);
+            input.addEventListener('change', updatePreview);
+        });
+
+        // --- Handler Unggah Pas Foto ---
+        document.getElementById('input-foto').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const fotoImg = document.getElementById('preview-foto-img');
+                    fotoImg.src = event.target.result;
+                    fotoImg.classList.remove('hidden');
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // --- Handler Unggah File CV ---
+        document.getElementById('input-cv-file').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const labelName = document.getElementById('cv-filename');
+            const cvNote = document.getElementById('prev-cv-note');
+            const lampiranText = document.getElementById('prev-lampiran-text');
+
+            if (file) {
+                labelName.textContent = file.name;
+                cvNote.textContent = `(${file.name})`;
+                lampiranText.textContent = `1 Berkas Utama (${file.name}) & Pendukung`;
+            } else {
+                labelName.textContent = 'Belum ada file dipilih';
+                cvNote.textContent = '';
+                lampiranText.textContent = '1 Berkas Lengkap';
+            }
+        });
+
+        // --- Signature Pad Logic ---
+        const canvas = document.getElementById('signature-pad');
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false;
+        let signMode = 'draw';
+
+        function resizeCanvas() {
+            const ratio = Math.max(window.devicePixelRatio || 1, 1);
+            canvas.width = canvas.offsetWidth * ratio;
+            canvas.height = canvas.offsetHeight * ratio;
+            ctx.scale(ratio, ratio);
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = '#0f172a';
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function getPos(e) {
+            const rect = canvas.getBoundingClientRect();
+            const clientX = e.clientX || (e.touches ? e.touches[0].clientX : 0);
+            const clientY = e.clientY || (e.touches ? e.touches[0].clientY : 0);
+            return {
+                x: clientX - rect.left,
+                y: clientY - rect.top
+            };
+        }
+
+        canvas.addEventListener('mousedown', startDraw);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDraw);
+        canvas.addEventListener('mouseleave', stopDraw);
+
+        canvas.addEventListener('touchstart', startDraw);
+        canvas.addEventListener('touchmove', draw);
+        canvas.addEventListener('touchend', stopDraw);
+
+        function startDraw(e) {
+            isDrawing = true;
+            const pos = getPos(e);
+            ctx.beginPath();
+            ctx.moveTo(pos.x, pos.y);
+            e.preventDefault();
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            const pos = getPos(e);
+            ctx.lineTo(pos.x, pos.y);
+            ctx.stroke();
+            updateSignaturePreview();
+            e.preventDefault();
+        }
+
+        function stopDraw() {
+            if (isDrawing) {
+                isDrawing = false;
+                updateSignaturePreview();
+            }
+        }
+
+        function clearSignature() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            document.getElementById('preview-signature-img').classList.add('hidden');
+            document.getElementById('preview-signature-img').src = '';
+        }
+
+        function updateSignaturePreview() {
+            const previewImg = document.getElementById('preview-signature-img');
+            const dataUrl = canvas.toDataURL('image/png');
+            previewImg.src = dataUrl;
+            previewImg.classList.remove('hidden');
+        }
+
+        function switchSignMode(mode) {
+            signMode = mode;
+            const btnDraw = document.getElementById('btn-mode-draw');
+            const btnUpload = document.getElementById('btn-mode-upload');
+            const drawContainer = document.getElementById('sign-draw-container');
+            const uploadContainer = document.getElementById('sign-upload-container');
+            const previewImg = document.getElementById('preview-signature-img');
+
+            if (mode === 'draw') {
+                btnDraw.className = "flex-1 py-1.5 text-xs font-semibold rounded-lg bg-white shadow-xs text-indigo-600 transition";
+                btnUpload.className = "flex-1 py-1.5 text-xs font-semibold rounded-lg text-slate-600 transition";
+                drawContainer.classList.remove('hidden');
+                uploadContainer.classList.add('hidden');
+                updateSignaturePreview();
+            } else {
+                btnUpload.className = "flex-1 py-1.5 text-xs font-semibold rounded-lg bg-white shadow-xs text-indigo-600 transition";
+                btnDraw.className = "flex-1 py-1.5 text-xs font-semibold rounded-lg text-slate-600 transition";
+                uploadContainer.classList.remove('hidden');
+                drawContainer.classList.add('hidden');
+                previewImg.classList.add('hidden');
+            }
+        }
+
+        document.getElementById('input-file-sign').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const previewImg = document.getElementById('preview-signature-img');
+                    previewImg.src = event.target.result;
+                    previewImg.classList.remove('hidden');
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function copyText() {
+            const previewText = document.getElementById('preview-section').innerText;
+            navigator.clipboard.writeText(previewText).then(() => {
+                const btn = document.getElementById('btn-copy');
+                btn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    Berhasil Disalin!
+                `;
+                setTimeout(() => {
+                    btn.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                        </svg>
+                        Salin Teks
+                    `;
+                }, 2000);
+            });
+        }
+
+        updatePreview();
+    </script>
+</body>
+</html>
